@@ -15,7 +15,7 @@ function HomePage() {
         </p>
       </Link>
 
-      <Link to="random-beer">
+      <Link to="/random-beer">
         <img src={random} alt="random beer" className="w-100" />
         <h1>Random Beer</h1>
         <p>

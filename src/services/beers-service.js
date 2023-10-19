@@ -1,32 +1,17 @@
 import axios from "axios";
 
-let beersCache = null;
-
-setInterval(() => {
-  beersCache = null;
-}, 1000 * 60 * 60 * 24);
-
 const service = axios.create({
-  baseURL: "https://ih-beers-api2.herokuapp.com",
+  baseURL: "https://ih-beers-api2.herokuapp.com/beers",
 });
 
 export function getAllBeers() {
-  if (beersCache) {
-    return Promise.resolve(beersCache);
-  }
-
-  return service.get("/beers").then((response) => {
-    beersCache = response.data;
-    return response.data;
-  });
+  return service.get("/").then((response) => response.data);
 }
 
 export function getBeer(id) {
-  const beer = beersCache?.find((b) => b._id === id);
+  return service.get(`/${id}`).then((response) => response.data);
+}
 
-  if (beer) {
-    return Promise.resolve(beer);
-  }
-
-  return service.get(`/beers/${id}`).then((response) => response.data);
+export function addBeer(beer) {
+  return service.post("/new", beer).then((response) => response.data);
 }
